@@ -1,0 +1,82 @@
+{
+  "automatic_detector_downloads": {
+    "clip": {
+      "loader": "official OpenAI CLIP clip.load",
+      "model": "ViT-L/14"
+    },
+    "dinov2": {
+      "revision": "7764ea0f912e53c92e82eb78a2a1631e92725fc8",
+      "model": "dinov2_vitl14",
+      "torch_hub_repository": "facebookresearch/dinov2:7764ea0f912e53c92e82eb78a2a1631e92725fc8",
+      "checkpoint_url": "https://dl.fbaipublicfiles.com/dinov2/dinov2_vitl14/dinov2_vitl14_pretrain.pth"
+    },
+    "inception": "https://api.ngc.nvidia.com/v2/models/nvidia/research/stylegan3/versions/1/files/metrics/inception-2015-12-05.pkl"
+  },
+  "checkpoints": [
+    {
+      "path": "${FD_MODEL_CACHE}/stylegan_xl/imagenet64.pkl",
+      "url": "https://s3.eu-central-1.amazonaws.com/avg-projects/stylegan_xl/models/imagenet64.pkl"
+    },
+    {
+      "path": "${FD_MODEL_CACHE}/stylegan_xl/imagenet256.pkl",
+      "url": "https://s3.eu-central-1.amazonaws.com/avg-projects/stylegan_xl/models/imagenet256.pkl"
+    },
+    {
+      "path": "${FD_MODEL_CACHE}/stylegan_xl/imagenet512.pkl",
+      "url": "https://s3.eu-central-1.amazonaws.com/avg-projects/stylegan_xl/models/imagenet512.pkl"
+    },
+    {
+      "path": "${FD_MODEL_CACHE}/ddo/edm2-img64-s-ddo.pkl",
+      "hf_filename": "edm2-img64-s-ddo.pkl",
+      "hf_repository": "nvidia/DirectDiscriminativeOptimization",
+      "hf_revision": "49257a0ed81726645e274e2fd5ac8e38a3ca7826"
+    },
+    {
+      "path": "${FD_MODEL_CACHE}/ddo/edm2-img512-l-ddo.pkl",
+      "hf_filename": "edm2-img512-l-ddo.pkl",
+      "hf_repository": "nvidia/DirectDiscriminativeOptimization",
+      "hf_revision": "49257a0ed81726645e274e2fd5ac8e38a3ca7826"
+    },
+    {
+      "hf_filename": "var_d30.pth",
+      "hf_repository": "FoundationVision/var",
+      "hf_revision": "6d0ee6598a42f75079aa79e58b012b57b284c91b",
+      "path": "${FD_MODEL_CACHE}/var/var_d30.pth"
+    },
+    {
+      "hf_filename": "var_d36.pth",
+      "hf_repository": "FoundationVision/var",
+      "hf_revision": "6d0ee6598a42f75079aa79e58b012b57b284c91b",
+      "path": "${FD_MODEL_CACHE}/var/var_d36.pth"
+    },
+    {
+      "hf_filename": "vae_ch160v4096z32.pth",
+      "hf_repository": "FoundationVision/var",
+      "hf_revision": "6d0ee6598a42f75079aa79e58b012b57b284c91b",
+      "path": "${FD_MODEL_CACHE}/var/vae_ch160v4096z32.pth"
+    }
+  ],
+  "repositories": [
+    {
+      "path": "${FD_UPSTREAM_ROOT}/stylegan_xl",
+      "revision": "4241ff9cfeb69d617427107a75d69e9d1c2d92f2",
+      "url": "https://github.com/autonomousvision/stylegan_xl.git"
+    },
+    {
+      "path": "${FD_UPSTREAM_ROOT}/edm2",
+      "revision": "4bf8162f601bcc09472ce8a32dd0cbe8889dc8fc",
+      "url": "https://github.com/NVlabs/edm2.git"
+    },
+    {
+      "path": "${FD_UPSTREAM_ROOT}/VAR",
+      "revision": "78b95394fc5896192e3a003e4b295f8ea743c48f",
+      "url": "https://github.com/FoundationVision/VAR.git"
+    },
+    {
+      "path": "${FD_UPSTREAM_ROOT}/openai_clip",
+      "revision": "d50d76daa670286dd6cacf3bcd80b5e4823fc8e1",
+      "url": "https://github.com/openai/CLIP.git"
+    }
+  ],
+  "schema": "imagenet-external-models-v1"
+}

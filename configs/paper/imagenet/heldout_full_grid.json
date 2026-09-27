@@ -1,0 +1,115 @@
+{
+  "schema": "imagenet-feature-study-v1",
+  "backend": "cupy",
+  "sampling": {
+    "outer_mode": "heldout",
+    "development_range": [
+      0,
+      300000
+    ],
+    "heldout_blocks": [
+      [
+        300000,
+        350000
+      ],
+      [
+        350000,
+        400000
+      ],
+      [
+        400000,
+        450000
+      ],
+      [
+        450000,
+        500000
+      ],
+      [
+        500000,
+        550000
+      ]
+    ],
+    "num_trials": 5,
+    "sample_budgets": [
+      50000
+    ],
+    "node_seed_phase": "heldout_nodes",
+    "minimum_samples": 5000
+  },
+  "numerics": {
+    "eig_rtol": 1e-10,
+    "eig_atol": 1e-12
+  },
+  "rtd": {
+    "m0_numerator": 3,
+    "m0_denominator": 5,
+    "L": null,
+    "rho_design": 0.25,
+    "C_T": 1.0,
+    "degree_cap": null,
+    "compensated_sum": true,
+    "imag_tol": 1e-10,
+    "stream_chunk_size": null
+  },
+  "proxies": {
+    "repetitions": 5,
+    "aggregation": "median",
+    "minimum_samples": 5000,
+    "num_points": 15,
+    "sample_schedule": "uniform_n",
+    "node_seed_phase": "fid_infinity",
+    "rtd_seed_phase": "rtd",
+    "plugin_seed_phase": "plugin",
+    "source_run": "${FD_ABLATION_RUN}"
+  },
+  "reuse": [],
+  "inputs_file": "inputs.json",
+  "estimator_grid": {
+    "baselines": {
+      "empirical_plugin": "empirical",
+      "rtd": "rtd"
+    },
+    "sweeps": [
+      {
+        "orders": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "weightings": [
+          "ordinary_ols",
+          "variance_aware"
+        ],
+        "schedules": [
+          "uniform_n",
+          "uniform_inverse_n",
+          "chebyshev_inverse_n"
+        ],
+        "num_points": [
+          "order+1",
+          10,
+          15,
+          20
+        ]
+      },
+      {
+        "orders": [
+          5,
+          6,
+          7,
+          8
+        ],
+        "weightings": [
+          "ordinary_ols"
+        ],
+        "schedules": [
+          "uniform_n"
+        ],
+        "num_points": [
+          15
+        ]
+      }
+    ]
+  }
+}

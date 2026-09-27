@@ -1,0 +1,109 @@
+# Paper design; CUDA is required for the original random streams.
+# Labels, master seed, budgets, pilot fraction, and adaptive degree rule are preserved.
+master_seed: 20260920
+backend: cupy
+gpu:
+  device: 0
+  sample_batch_size: 5000
+  synchronize_timing: true
+experiment:
+  dimensions:
+  - 200
+  - 300
+  - 400
+  - 600
+  - 900
+  - 1200
+  - 1600
+  - 2048
+  - 2500
+  - 3000
+  sample_budgets:
+  - 50000
+  - 60000
+  - 80000
+  - 100000
+  methods:
+  - empirical_plugin
+  - fid_infinity_ols_order1
+  - fid_infinity_ols_order2
+  - fid_infinity_ols_order3
+  - general_adaptive
+  known_zero_mean: true
+  nested_sample_prefixes: true
+  m0_fraction_numerator: 4
+  m0_fraction_denominator: 5
+covariance_cases:
+- suite: stress
+  family: rank_deficient
+  case_label: rank_fraction_075
+  num_instances: 10
+  num_trials: 5
+  parameters:
+    target_w2_sq: 5.0
+    rank_fraction: 0.75
+    randomize_angles: true
+- suite: stress
+  family: rank_deficient
+  case_label: rank_fraction_050
+  num_instances: 10
+  num_trials: 5
+  parameters:
+    target_w2_sq: 5.0
+    rank_fraction: 0.5
+    randomize_angles: true
+- suite: stress
+  family: rank_deficient
+  case_label: rank_fraction_025
+  num_instances: 10
+  num_trials: 5
+  parameters:
+    target_w2_sq: 5.0
+    rank_fraction: 0.25
+    randomize_angles: true
+- suite: stress
+  family: ill_conditioned
+  case_label: ill_conditioned_kappa_1e2
+  num_instances: 10
+  num_trials: 5
+  parameters:
+    target_w2_sq: 5.0
+    condition_number: 100.0
+    randomize_angles: true
+- suite: stress
+  family: ill_conditioned
+  case_label: ill_conditioned_kappa_1e4
+  num_instances: 10
+  num_trials: 5
+  parameters:
+    target_w2_sq: 5.0
+    condition_number: 10000.0
+    randomize_angles: true
+- suite: stress
+  family: ill_conditioned
+  case_label: ill_conditioned_kappa_1e6
+  num_instances: 10
+  num_trials: 5
+  parameters:
+    target_w2_sq: 5.0
+    condition_number: 1000000.0
+    randomize_angles: true
+fid_infinity:
+  minimum_samples: 5000
+  num_points: 15
+  regression_orders:
+  - 1
+  - 2
+  - 3
+  regression_weightings:
+  - ordinary_ols
+general_order:
+  rho_design: 0.25
+  C_T: 1.0
+  degree_cap: null
+  compensated_sum: true
+numerics:
+  eig_rtol: 1.0e-10
+  eig_atol: 1.0e-12
+output:
+  directory: outputs/gaussian_stress

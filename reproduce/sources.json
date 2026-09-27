@@ -1,0 +1,539 @@
+{
+  "schema_version": 1,
+  "description": "Lossless compact publication records. Files contain numerical measurements and scientific case identifiers only. No simulation, embeddings, or external checkout is required for reconstruction.",
+  "datasets": {
+    "gaussian_isotropic": {
+      "file": "data/gaussian_isotropic.csv.gz",
+      "rows": 250,
+      "columns": [
+        "suite",
+        "family",
+        "case_label",
+        "dimension",
+        "N",
+        "m0",
+        "instance_id",
+        "trial_id",
+        "covariance_seed",
+        "sampling_seed",
+        "method",
+        "true_w2_sq",
+        "estimate_w2_sq_raw",
+        "status",
+        "runtime_seconds",
+        "L_used"
+      ],
+      "description": "Recorded Gaussian per-trial estimates; raw negative estimates retained."
+    },
+    "gaussian_random": {
+      "file": "data/gaussian_random.csv.gz",
+      "rows": 30000,
+      "columns": [
+        "suite",
+        "family",
+        "case_label",
+        "dimension",
+        "N",
+        "m0",
+        "instance_id",
+        "trial_id",
+        "covariance_seed",
+        "sampling_seed",
+        "method",
+        "true_w2_sq",
+        "estimate_w2_sq_raw",
+        "status",
+        "runtime_seconds",
+        "L_used"
+      ],
+      "description": "Recorded Gaussian per-trial estimates; raw negative estimates retained."
+    },
+    "gaussian_stress": {
+      "file": "data/gaussian_stress.csv.gz",
+      "rows": 60000,
+      "columns": [
+        "suite",
+        "family",
+        "case_label",
+        "dimension",
+        "N",
+        "m0",
+        "instance_id",
+        "trial_id",
+        "covariance_seed",
+        "sampling_seed",
+        "method",
+        "true_w2_sq",
+        "estimate_w2_sq_raw",
+        "status",
+        "runtime_seconds",
+        "L_used"
+      ],
+      "description": "Recorded Gaussian per-trial estimates; raw negative estimates retained."
+    },
+    "gaussian_nodes": {
+      "file": "data/gaussian_nodes.csv.gz",
+      "rows": 270750,
+      "columns": [
+        "family",
+        "case_label",
+        "dimension",
+        "N",
+        "instance_id",
+        "trial_id",
+        "dataset",
+        "sample_size",
+        "estimate",
+        "sampling_seed"
+      ],
+      "description": "Shared 15-node plug-in curves for each Gaussian sample trajectory, used to reconstruct OLS and VALE intercepts."
+    },
+    "development_plan": {
+      "file": "data/development_plan.json"
+    },
+    "development_trials": {
+      "file": "data/development_trials.csv.gz",
+      "rows": 11340,
+      "columns": [
+        "case_id",
+        "trial_id",
+        "configuration_id",
+        "estimate",
+        "status",
+        "sampling_seed",
+        "runtime_seconds",
+        "fit_seconds",
+        "generator",
+        "embedding"
+      ],
+      "description": "Complete 54-rule bank: eight OLS orders, 45 distinct VA rules, and Empirical; 21 cases x 10 trials. Figure displays only orders 1\u20136."
+    },
+    "proxies": {
+      "file": "data/proxies.csv.gz",
+      "rows": 63,
+      "columns": [
+        "case_id",
+        "generator",
+        "embedding",
+        "proxy",
+        "reference_value"
+      ],
+      "description": "Fixed 300K RTD, plug-in, and FID-infinity proxies shared by development, held-out, and budget evaluation."
+    },
+    "proxy_runs": {
+      "file": "data/proxy_runs.csv.gz",
+      "rows": 210,
+      "columns": [
+        "case_id",
+        "generator",
+        "embedding",
+        "proxy",
+        "repetition",
+        "estimate",
+        "sampling_seed",
+        "runtime_seconds",
+        "m0",
+        "n_correction",
+        "L_used"
+      ],
+      "description": "Five full-pool randomized repetitions for each RTD and FID-infinity proxy; reference values are their medians."
+    },
+    "development_nodes": {
+      "file": "data/development_nodes.csv.gz",
+      "rows": 24990,
+      "columns": [
+        "case_id",
+        "generator",
+        "embedding",
+        "trial_id",
+        "sample_size",
+        "estimate",
+        "sampling_seed",
+        "runtime_seconds",
+        "status"
+      ],
+      "description": "All shared development plug-in nodes, keyed by case/trial/sample size."
+    },
+    "proxy_nodes": {
+      "file": "data/proxy_nodes.csv.gz",
+      "rows": 1575,
+      "columns": [
+        "case_id",
+        "generator",
+        "embedding",
+        "repetition",
+        "sample_size",
+        "estimate",
+        "sampling_seed",
+        "runtime_seconds",
+        "status"
+      ],
+      "description": "Full-pool FID-infinity proxy plug-in nodes."
+    },
+    "heldout_plan": {
+      "file": "data/heldout_plan.json"
+    },
+    "heldout_trials": {
+      "file": "data/heldout_trials.csv.gz",
+      "rows": 9135,
+      "columns": [
+        "case_id",
+        "generator",
+        "embedding",
+        "trial_id",
+        "configuration_id",
+        "estimate",
+        "runtime_seconds",
+        "fit_seconds",
+        "sampling_seed",
+        "status",
+        "block_start",
+        "block_stop"
+      ],
+      "description": "Complete 87-rule held-out bank (21 cases x five disjoint blocks); final N=50K source for both held-out and sample-budget tables."
+    },
+    "heldout_nodes": {
+      "file": "data/heldout_nodes.csv.gz",
+      "rows": 12495,
+      "columns": [
+        "case_id",
+        "generator",
+        "embedding",
+        "trial_id",
+        "sample_size",
+        "estimate",
+        "runtime_seconds",
+        "sampling_seed",
+        "status",
+        "block_start",
+        "block_stop"
+      ],
+      "description": "Shared held-out plug-in nodes for independently rebuilding all extrapolation estimates and recorded node-sum runtimes."
+    },
+    "budget_trials": {
+      "file": "data/budget_trials.csv.gz",
+      "rows": 2520,
+      "columns": [
+        "case_id",
+        "generator",
+        "embedding",
+        "trial_id",
+        "configuration_id",
+        "estimate",
+        "runtime_seconds",
+        "fit_seconds",
+        "sampling_seed",
+        "status",
+        "block_start",
+        "block_stop",
+        "max_samples",
+        "method",
+        "m0",
+        "n_correction",
+        "L_used"
+      ],
+      "description": "N=10K,20K,30K,40K only; RTD pilot floor(0.6N). N=50K MUST reuse heldout_trials, whose node randomization differs from this budget experiment."
+    },
+    "budget_nodes": {
+      "file": "data/budget_nodes.csv.gz",
+      "rows": 21490,
+      "columns": [
+        "case_id",
+        "generator",
+        "embedding",
+        "max_samples",
+        "trial_id",
+        "sample_size",
+        "estimate",
+        "sampling_seed",
+        "runtime_seconds",
+        "status"
+      ],
+      "description": "FD-only archived plug-in nodes for the retained 10K\u201340K baseline/VA estimates; no obsolete RTD runs are included."
+    },
+    "expected_selection": {
+      "file": "data/expected_selection.json"
+    },
+    "paper_table_values": {
+      "file": "data/paper_table_values.json"
+    },
+    "proxy_trend_trials": {
+      "file": "data/proxy_trend_trials.csv.gz",
+      "rows": 2321,
+      "columns": [
+        "case_id",
+        "generator",
+        "embedding",
+        "dimension",
+        "sample_budget",
+        "proxy",
+        "repetition",
+        "estimate",
+        "status",
+        "runtime_seconds"
+      ],
+      "description": "Empirical, FID-infinity, and RTD estimates for 21 generator/embedding cases at 30K, 60K, ..., 300K, plus the DDO/EDM2-L-512 Inception case at 50K. Each budget has one empirical estimate and five repetitions of each debiased estimator."
+    },
+    "proxy_trend_nodes": {
+      "file": "data/proxy_trend_nodes.csv.gz",
+      "rows": 15825,
+      "columns": [
+        "case_id",
+        "generator",
+        "embedding",
+        "dimension",
+        "sample_budget",
+        "repetition",
+        "sample_size",
+        "estimate",
+        "status",
+        "sampling_seed"
+      ],
+      "description": "Fifteen plug-in nodes per FID-infinity repetition, uniformly spaced in sample size from 5K to N; also used to refit VALE2 for the introduction comparison."
+    }
+  },
+  "figures": {
+    "intro_gaussian_and_imagenet": {
+      "paper_source": "tex/intro.tex",
+      "paper_label": "fig:intro-estimator-comparison",
+      "records": [
+        "gaussian_random",
+        "gaussian_nodes",
+        "proxy_trend_trials",
+        "proxy_trend_nodes"
+      ],
+      "gaussian_filter": "family == 'haar_log_uniform' and N == 50000",
+      "imagenet_filter": "generator == 'ddo_edm2_l_imagenet512' and embedding == 'fid' and sample_budget >= 50000",
+      "methods": [
+        "FID-infinity",
+        "VALE2",
+        "RTD"
+      ],
+      "aggregation": "Gaussian: mean across ten population pairs of five-trial median absolute errors. ImageNet: median of five raw estimates at each budget.",
+      "extrapolation": "FID-infinity and VALE2 use the same 15 uniform-in-n plug-in nodes from 5K to N; VALE2 uses second-order variance-aware weights."
+    },
+    "gaussian_dimension_haar": {
+      "paper_source": "tex/exp_gaussian.tex",
+      "paper_label": "fig:controlled-random-error",
+      "records": [
+        "gaussian_random"
+      ],
+      "filter": "family == 'haar_log_uniform'",
+      "aggregation": "five-trial median absolute error per population pair, then mean and sample SD over ten pairs"
+    },
+    "imagenet_proxy_example": {
+      "paper_source": "tex/exp_img.tex",
+      "paper_label": "fig:imagenet-proxy-example",
+      "records": [
+        "proxy_trend_trials"
+      ],
+      "filter": "generator == 'stylegan_xl_imagenet256' and sample_budget != 50000; all three embeddings",
+      "aggregation": "one empirical estimate and the medians of five FID-infinity and RTD estimates at each budget"
+    },
+    "gaussian_dimension_spiked_bulk": {
+      "paper_source": "tex/app_exp_gaussian.tex",
+      "paper_label": "fig:controlled-spiked-bulk-error",
+      "records": [
+        "gaussian_random"
+      ],
+      "filter": "family == 'spiked_bulk'",
+      "aggregation": "five-trial median absolute error per population pair, then mean and sample SD over ten pairs"
+    },
+    "gaussian_dimension_rotated_toeplitz": {
+      "paper_source": "tex/app_exp_gaussian.tex",
+      "paper_label": "fig:controlled-toeplitz-error",
+      "records": [
+        "gaussian_random"
+      ],
+      "filter": "family == 'rotated_toeplitz'",
+      "aggregation": "five-trial median absolute error per population pair, then mean and sample SD over ten pairs"
+    },
+    "gaussian_rank_error": {
+      "paper_source": "tex/app_exp_gaussian.tex",
+      "paper_label": "fig:stress-rank",
+      "records": [
+        "gaussian_stress"
+      ],
+      "filter": "family == 'rank_deficient'",
+      "aggregation": "five-trial median absolute error per population pair, then mean and sample SD over ten pairs"
+    },
+    "gaussian_condition_error": {
+      "paper_source": "tex/app_exp_gaussian.tex",
+      "paper_label": "fig:stress-ill-conditioned",
+      "records": [
+        "gaussian_stress"
+      ],
+      "filter": "family == 'ill_conditioned'",
+      "aggregation": "five-trial median absolute error per population pair, then mean and sample SD over ten pairs"
+    },
+    "imagenet_proxy_consistency_inception_additional": {
+      "paper_source": "tex/app_exp_img.tex",
+      "paper_label": "fig:imagenet-proxy-consistency-inception",
+      "records": [
+        "proxy_trend_trials"
+      ],
+      "filter": "embedding == 'fid' and generator != 'stylegan_xl_imagenet256' and sample_budget != 50000",
+      "aggregation": "one empirical estimate and the medians of five FID-infinity and RTD estimates at each budget"
+    },
+    "imagenet_proxy_consistency_dinov2_additional": {
+      "paper_source": "tex/app_exp_img.tex",
+      "paper_label": "fig:imagenet-proxy-consistency-dinov2",
+      "records": [
+        "proxy_trend_trials"
+      ],
+      "filter": "embedding == 'fd_dinov2' and generator != 'stylegan_xl_imagenet256' and sample_budget != 50000",
+      "aggregation": "one empirical estimate and the medians of five FID-infinity and RTD estimates at each budget"
+    },
+    "imagenet_proxy_consistency_clip_additional": {
+      "paper_source": "tex/app_exp_img.tex",
+      "paper_label": "fig:imagenet-proxy-consistency-clip",
+      "records": [
+        "proxy_trend_trials"
+      ],
+      "filter": "embedding == 'clip' and generator != 'stylegan_xl_imagenet256' and sample_budget != 50000",
+      "aggregation": "one empirical estimate and the medians of five FID-infinity and RTD estimates at each budget"
+    },
+    "imagenet_ols_order_rtd_absolute": {
+      "paper_source": "tex/app_exp_img.tex",
+      "paper_label": "fig:imagenet-order-sweep",
+      "records": [
+        "development_trials",
+        "development_plan",
+        "proxies"
+      ],
+      "filter": "ordinary OLS orders 1 through 6, uniform-n, 15 points",
+      "aggregation": "ten-trial center error, sample SD and RMSE within each case; hollow case markers and seven-generator mean curves"
+    }
+  },
+  "tables": {
+    "tab:hard-isotropic": {
+      "output": "isotropic",
+      "paper_source": "tex/exp_gaussian.tex",
+      "records": [
+        "gaussian_isotropic"
+      ]
+    },
+    "tab:imagenet-proxy-median-error": {
+      "output": "proxy_sensitivity",
+      "paper_source": "tex/exp_img.tex",
+      "records": [
+        "heldout_trials",
+        "proxies",
+        "development_trials",
+        "development_plan"
+      ]
+    },
+    "tab:imagenet-ablation-summary": {
+      "output": "ablation_summary",
+      "paper_source": "tex/exp_img.tex",
+      "records": [
+        "development_trials",
+        "development_plan",
+        "proxies"
+      ],
+      "aggregation": "average of full-precision mean RMSEs for orders 1 through 3; percentage reductions compare consecutive configurations; rounding is applied only for display"
+    },
+    "tab:imagenet-computation-time": {
+      "output": "runtime",
+      "paper_source": "tex/exp_img.tex",
+      "records": [
+        "heldout_trials",
+        "proxies",
+        "development_trials",
+        "development_plan"
+      ],
+      "aggregation": "mean and sample SD of 35 held-out runtimes per embedding/method; milliseconds with one decimal place"
+    },
+    "tab:imagenet-fd-sample-budget-heldout": {
+      "output": "sample_budget",
+      "paper_source": "tex/exp_img.tex",
+      "records": [
+        "budget_trials",
+        "heldout_trials",
+        "proxies",
+        "development_trials",
+        "development_plan"
+      ],
+      "filter": "embedding == 'fid'",
+      "budget_source": "10K\u201340K from budget_trials; 50K from heldout_trials"
+    },
+    "tab:imagenet-model-detail": {
+      "output": "checkpoint_proxies",
+      "paper_source": "tex/app_exp_img.tex",
+      "records": [
+        "proxies"
+      ]
+    },
+    "tab:imagenet-proxy-agreement": {
+      "output": "proxy_agreement",
+      "paper_source": "tex/app_exp_img.tex",
+      "records": [
+        "proxy_trend_trials"
+      ],
+      "filter": "sample_budget in [30000, 300000]; all seven generators and all three embeddings",
+      "aggregation": "mean absolute difference from the RTD median across seven generators at the same budget"
+    },
+    "tab:imagenet-VA-OLS": {
+      "output": "matched_ols_va",
+      "paper_source": "tex/app_exp_img.tex",
+      "records": [
+        "development_trials",
+        "development_plan",
+        "proxies"
+      ]
+    },
+    "tab:imagenet-optimal-schedule": {
+      "output": "selected_strategies",
+      "paper_source": "tex/app_exp_img.tex",
+      "records": [
+        "development_trials",
+        "development_plan",
+        "proxies"
+      ],
+      "selection": "recomputed minimum mean RMSE within embedding/order"
+    },
+    "tab:imagenet-va-full-grid": {
+      "output": "va_grid_fid",
+      "paper_source": "tex/app_exp_img.tex",
+      "records": [
+        "development_trials",
+        "development_plan",
+        "proxies"
+      ],
+      "filter": "embedding == 'fid'"
+    },
+    "tab:imagenet-va-full-grid-dinov2": {
+      "output": "va_grid_fd_dinov2",
+      "paper_source": "tex/app_exp_img.tex",
+      "records": [
+        "development_trials",
+        "development_plan",
+        "proxies"
+      ],
+      "filter": "embedding == 'fd_dinov2'"
+    },
+    "tab:imagenet-va-full-grid-clip": {
+      "output": "va_grid_clip",
+      "paper_source": "tex/app_exp_img.tex",
+      "records": [
+        "development_trials",
+        "development_plan",
+        "proxies"
+      ],
+      "filter": "embedding == 'clip'"
+    },
+    "tab:imagenet-sample-budget-additional": {
+      "output": "sample_budget_additional",
+      "paper_source": "tex/app_exp_img.tex",
+      "records": [
+        "budget_trials",
+        "heldout_trials",
+        "proxies",
+        "development_trials",
+        "development_plan"
+      ],
+      "filter": "embedding in ['fd_dinov2', 'clip']",
+      "budget_source": "10K\u201340K from budget_trials; 50K from heldout_trials"
+    }
+  }
+}

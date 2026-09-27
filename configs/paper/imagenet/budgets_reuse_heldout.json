@@ -1,0 +1,204 @@
+{
+  "schema": "imagenet-feature-study-v1",
+  "backend": "cupy",
+  "sampling": {
+    "outer_mode": "heldout",
+    "development_range": [
+      0,
+      300000
+    ],
+    "heldout_blocks": [
+      [
+        300000,
+        350000
+      ],
+      [
+        350000,
+        400000
+      ],
+      [
+        400000,
+        450000
+      ],
+      [
+        450000,
+        500000
+      ],
+      [
+        500000,
+        550000
+      ]
+    ],
+    "num_trials": 5,
+    "sample_budgets": [
+      10000,
+      20000,
+      30000,
+      40000,
+      50000
+    ],
+    "node_seed_phase": "heldout_budget_nodes",
+    "minimum_samples": 5000
+  },
+  "numerics": {
+    "eig_rtol": 1e-10,
+    "eig_atol": 1e-12
+  },
+  "rtd": {
+    "m0_numerator": 3,
+    "m0_denominator": 5,
+    "L": null,
+    "rho_design": 0.25,
+    "C_T": 1.0,
+    "degree_cap": null,
+    "compensated_sum": true,
+    "imag_tol": 1e-10,
+    "stream_chunk_size": null
+  },
+  "proxies": {
+    "repetitions": 5,
+    "aggregation": "median",
+    "minimum_samples": 5000,
+    "num_points": 15,
+    "sample_schedule": "uniform_n",
+    "node_seed_phase": "fid_infinity",
+    "rtd_seed_phase": "rtd",
+    "plugin_seed_phase": "plugin",
+    "source_run": "${FD_ABLATION_RUN}"
+  },
+  "estimators": {
+    "fid": [
+      {
+        "configuration_id": "empirical_plugin",
+        "kind": "empirical"
+      },
+      {
+        "configuration_id": "fid_infinity",
+        "kind": "extrapolation",
+        "order": 1,
+        "weighting": "ordinary_ols",
+        "sample_schedule": "uniform_n",
+        "num_points": 15
+      },
+      {
+        "configuration_id": "va_order1",
+        "kind": "extrapolation",
+        "order": 1,
+        "weighting": "variance_aware",
+        "sample_schedule": "uniform_n",
+        "num_points": 2
+      },
+      {
+        "configuration_id": "va_order2",
+        "kind": "extrapolation",
+        "order": 2,
+        "weighting": "variance_aware",
+        "sample_schedule": "chebyshev_inverse_n",
+        "num_points": 15
+      },
+      {
+        "configuration_id": "va_order3",
+        "kind": "extrapolation",
+        "order": 3,
+        "weighting": "variance_aware",
+        "sample_schedule": "chebyshev_inverse_n",
+        "num_points": 20
+      },
+      {
+        "configuration_id": "rtd",
+        "kind": "rtd"
+      }
+    ],
+    "fd_dinov2": [
+      {
+        "configuration_id": "empirical_plugin",
+        "kind": "empirical"
+      },
+      {
+        "configuration_id": "fid_infinity",
+        "kind": "extrapolation",
+        "order": 1,
+        "weighting": "ordinary_ols",
+        "sample_schedule": "uniform_n",
+        "num_points": 15
+      },
+      {
+        "configuration_id": "va_order1",
+        "kind": "extrapolation",
+        "order": 1,
+        "weighting": "variance_aware",
+        "sample_schedule": "uniform_n",
+        "num_points": 2
+      },
+      {
+        "configuration_id": "va_order2",
+        "kind": "extrapolation",
+        "order": 2,
+        "weighting": "variance_aware",
+        "sample_schedule": "chebyshev_inverse_n",
+        "num_points": 15
+      },
+      {
+        "configuration_id": "va_order3",
+        "kind": "extrapolation",
+        "order": 3,
+        "weighting": "variance_aware",
+        "sample_schedule": "chebyshev_inverse_n",
+        "num_points": 20
+      },
+      {
+        "configuration_id": "rtd",
+        "kind": "rtd"
+      }
+    ],
+    "clip": [
+      {
+        "configuration_id": "empirical_plugin",
+        "kind": "empirical"
+      },
+      {
+        "configuration_id": "fid_infinity",
+        "kind": "extrapolation",
+        "order": 1,
+        "weighting": "ordinary_ols",
+        "sample_schedule": "uniform_n",
+        "num_points": 15
+      },
+      {
+        "configuration_id": "va_order1",
+        "kind": "extrapolation",
+        "order": 1,
+        "weighting": "variance_aware",
+        "sample_schedule": "uniform_inverse_n",
+        "num_points": 15
+      },
+      {
+        "configuration_id": "va_order2",
+        "kind": "extrapolation",
+        "order": 2,
+        "weighting": "variance_aware",
+        "sample_schedule": "uniform_inverse_n",
+        "num_points": 20
+      },
+      {
+        "configuration_id": "va_order3",
+        "kind": "extrapolation",
+        "order": 3,
+        "weighting": "variance_aware",
+        "sample_schedule": "uniform_n",
+        "num_points": 20
+      },
+      {
+        "configuration_id": "rtd",
+        "kind": "rtd"
+      }
+    ]
+  },
+  "reuse": [
+    {
+      "sample_budget": 50000,
+      "run": "${FD_HELDOUT_RUN}"
+    }
+  ],
+  "inputs_file": "inputs.json"
+}

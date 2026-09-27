@@ -1,0 +1,64 @@
+# Small CPU smoke run: isotropic, random, and singular populations.
+# The degree cap is for speed; paper configs use the uncapped adaptive rule.
+master_seed: 20260913
+backend: numpy
+gpu:
+  device: 0
+  sample_batch_size: 64
+  synchronize_timing: true
+experiment:
+  dimensions:
+  - 4
+  sample_budgets:
+  - 160
+  - 200
+  known_zero_mean: true
+  nested_sample_prefixes: true
+  m0_fraction_numerator: 4
+  m0_fraction_denominator: 5
+covariance_cases:
+- suite: stress
+  family: isotropic
+  case_label: smoke_isotropic
+  num_instances: 1
+  num_trials: 2
+  parameters:
+    target_w2_sq: 1.0
+    generated_scale: 0.5
+- suite: average
+  family: haar_log_uniform
+  case_label: smoke_random
+  num_instances: 1
+  num_trials: 2
+  parameters:
+    lambda_min: 0.2
+    lambda_max: 1.0
+- suite: stress
+  family: rank_deficient
+  case_label: smoke_rank
+  num_instances: 1
+  num_trials: 2
+  parameters:
+    target_w2_sq: 0.25
+    rank_fraction: 0.5
+    randomize_angles: true
+fid_infinity:
+  minimum_samples: 40
+  num_points: 5
+  regression_orders:
+  - 1
+  - 2
+  - 3
+  regression_weightings:
+  - ordinary_ols
+  - variance_aware
+general_order:
+  rho_design: 0.25
+  C_T: 1.0
+  degree_cap: 3
+  compensated_sum: true
+numerics:
+  eig_rtol: 1.0e-10
+  eig_atol: 1.0e-12
+output:
+  directory: outputs/gaussian_smoke

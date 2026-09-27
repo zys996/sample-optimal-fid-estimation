@@ -1,0 +1,312 @@
+{
+  "schema": "imagenet-preparation-v1",
+  "output": "${FD_DATA_ROOT}",
+  "num_classes": 1000,
+  "samples_per_pool": 550000,
+  "device": "cuda",
+  "edm2_repository": "${FD_UPSTREAM_ROOT}/edm2",
+  "clip_download_root": "${FD_MODEL_CACHE}/clip",
+  "dino_resize_mode": "torch",
+  "feature_dimensions": {
+    "fid": 2048,
+    "fd_dinov2": 1024,
+    "clip": 768
+  },
+  "merge_chunk_rows": 8192,
+  "reference": {
+    "images": "${IMAGENET_TRAIN}",
+    "source_format": "raw",
+    "sample_count": 1281167,
+    "batch_size": 64,
+    "num_workers": 8
+  },
+  "sample_blocks": [
+    [
+      0,
+      300000
+    ],
+    [
+      300000,
+      350000
+    ],
+    [
+      350000,
+      400000
+    ],
+    [
+      400000,
+      450000
+    ],
+    [
+      450000,
+      500000
+    ],
+    [
+      500000,
+      550000
+    ]
+  ],
+  "pools": [
+    {
+      "pool_id": "stylegan_xl_imagenet64",
+      "resolution": 64,
+      "adapter": "stylegan_xl",
+      "adapter_options": {
+        "repository_root": "$FD_UPSTREAM_ROOT/stylegan_xl",
+        "repository_revision": "4241ff9cfeb69d617427107a75d69e9d1c2d92f2",
+        "checkpoint": "$FD_MODEL_CACHE/stylegan_xl/imagenet64.pkl",
+        "batch_size": 128,
+        "seed_semantics": "per_image_seed",
+        "truncation_psi": 1.0,
+        "noise_mode": "const"
+      },
+      "seed_start": 2026090301,
+      "lane_ranges": [
+        [
+          0,
+          550000
+        ]
+      ]
+    },
+    {
+      "pool_id": "ddo_edm2_s_imagenet64",
+      "resolution": 64,
+      "adapter": "edm2",
+      "adapter_options": {
+        "repository_root": "$FD_UPSTREAM_ROOT/edm2",
+        "repository_revision": "4bf8162f601bcc09472ce8a32dd0cbe8889dc8fc",
+        "checkpoint": "$FD_MODEL_CACHE/ddo/edm2-img64-s-ddo.pkl",
+        "batch_size": 64,
+        "seed_semantics": "per_image_seed",
+        "num_steps": 32,
+        "guidance": 1.0,
+        "encoder_batch_size": 4,
+        "use_fp16": true,
+        "force_fp32": false,
+        "sampler_kwargs": {
+          "sigma_min": 0.002,
+          "sigma_max": 80.0,
+          "rho": 7.0
+        }
+      },
+      "seed_start": 2026640301,
+      "lane_ranges": [
+        [
+          0,
+          275000
+        ],
+        [
+          275000,
+          550000
+        ]
+      ]
+    },
+    {
+      "pool_id": "stylegan_xl_imagenet256",
+      "resolution": 256,
+      "adapter": "stylegan_xl",
+      "adapter_options": {
+        "repository_root": "$FD_UPSTREAM_ROOT/stylegan_xl",
+        "repository_revision": "4241ff9cfeb69d617427107a75d69e9d1c2d92f2",
+        "checkpoint": "$FD_MODEL_CACHE/stylegan_xl/imagenet256.pkl",
+        "batch_size": 64,
+        "seed_semantics": "per_image_seed",
+        "truncation_psi": 1.0,
+        "noise_mode": "const"
+      },
+      "seed_start": 2027190301,
+      "lane_ranges": [
+        [
+          0,
+          550000
+        ]
+      ]
+    },
+    {
+      "pool_id": "var_d30_imagenet256",
+      "resolution": 256,
+      "adapter": "var",
+      "adapter_options": {
+        "repository_root": "$FD_UPSTREAM_ROOT/VAR",
+        "repository_revision": "78b95394fc5896192e3a003e4b295f8ea743c48f",
+        "checkpoint": "$FD_MODEL_CACHE/var/var_d30.pth",
+        "vae_checkpoint": "$FD_MODEL_CACHE/var/vae_ch160v4096z32.pth",
+        "batch_size": 32,
+        "seed_semantics": "batch_stream_seed",
+        "resolution": 256,
+        "depth": 30,
+        "patch_nums": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          8,
+          10,
+          13,
+          16
+        ],
+        "cfg": 1.5,
+        "top_k": 900,
+        "top_p": 0.96,
+        "more_smooth": false,
+        "autocast_dtype": "float16"
+      },
+      "seed_start": 2027740301,
+      "lane_ranges": [
+        [
+          0,
+          550000
+        ]
+      ]
+    },
+    {
+      "pool_id": "stylegan_xl_imagenet512",
+      "resolution": 512,
+      "adapter": "stylegan_xl",
+      "adapter_options": {
+        "repository_root": "$FD_UPSTREAM_ROOT/stylegan_xl",
+        "repository_revision": "4241ff9cfeb69d617427107a75d69e9d1c2d92f2",
+        "checkpoint": "$FD_MODEL_CACHE/stylegan_xl/imagenet512.pkl",
+        "batch_size": 16,
+        "seed_semantics": "per_image_seed",
+        "truncation_psi": 1.0,
+        "noise_mode": "const"
+      },
+      "seed_start": 2028840301,
+      "lane_ranges": [
+        [
+          0,
+          550000
+        ]
+      ]
+    },
+    {
+      "pool_id": "ddo_edm2_l_imagenet512",
+      "resolution": 512,
+      "adapter": "edm2",
+      "adapter_options": {
+        "repository_root": "$FD_UPSTREAM_ROOT/edm2",
+        "repository_revision": "4bf8162f601bcc09472ce8a32dd0cbe8889dc8fc",
+        "checkpoint": "$FD_MODEL_CACHE/ddo/edm2-img512-l-ddo.pkl",
+        "batch_size": 8,
+        "seed_semantics": "per_image_seed",
+        "num_steps": 32,
+        "guidance": 1.0,
+        "encoder_batch_size": 4,
+        "use_fp16": true,
+        "force_fp32": false,
+        "sampler_kwargs": {
+          "sigma_min": 0.002,
+          "sigma_max": 80.0,
+          "rho": 7.0
+        }
+      },
+      "seed_start": 2029390301,
+      "lane_ranges": [
+        [
+          0,
+          43000
+        ],
+        [
+          43000,
+          86000
+        ],
+        [
+          86000,
+          129000
+        ],
+        [
+          129000,
+          172000
+        ],
+        [
+          172000,
+          214000
+        ],
+        [
+          214000,
+          256000
+        ],
+        [
+          256000,
+          298000
+        ],
+        [
+          298000,
+          340000
+        ],
+        [
+          340000,
+          382000
+        ],
+        [
+          382000,
+          424000
+        ],
+        [
+          424000,
+          466000
+        ],
+        [
+          466000,
+          508000
+        ],
+        [
+          508000,
+          550000
+        ]
+      ]
+    },
+    {
+      "pool_id": "var_d36_imagenet512",
+      "resolution": 512,
+      "adapter": "var",
+      "adapter_options": {
+        "repository_root": "$FD_UPSTREAM_ROOT/VAR",
+        "repository_revision": "78b95394fc5896192e3a003e4b295f8ea743c48f",
+        "checkpoint": "$FD_MODEL_CACHE/var/var_d36.pth",
+        "vae_checkpoint": "$FD_MODEL_CACHE/var/vae_ch160v4096z32.pth",
+        "batch_size": 16,
+        "seed_semantics": "batch_stream_seed",
+        "resolution": 512,
+        "depth": 36,
+        "patch_nums": [
+          1,
+          2,
+          3,
+          4,
+          6,
+          9,
+          13,
+          18,
+          24,
+          32
+        ],
+        "cfg": 1.5,
+        "top_k": 900,
+        "top_p": 0.96,
+        "more_smooth": false,
+        "autocast_dtype": "float16"
+      },
+      "seed_start": 2029940301,
+      "lane_ranges": [
+        [
+          0,
+          184000
+        ],
+        [
+          184000,
+          367000
+        ],
+        [
+          367000,
+          550000
+        ]
+      ]
+    }
+  ],
+  "dino_repository": "facebookresearch/dinov2:7764ea0f912e53c92e82eb78a2a1631e92725fc8",
+  "dino_source": "github"
+}

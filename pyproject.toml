@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gaussian-fd-estimation"
+version = "0.1.0"
+description = "Estimators and reproducible experiments for Gaussian Frechet distance"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.26,<3",
+    "scipy>=1.11,<2",
+    "PyYAML>=6,<7",
+]
+
+[project.optional-dependencies]
+report = ["pandas>=2.2,<4", "matplotlib>=3.8,<4"]
+notebook = ["jupyterlab>=4,<5", "nbclient>=0.10,<0.11"]
+test = ["pytest>=8,<9"]
+gpu = ["cupy-cuda12x==14.1.1; sys_platform == 'linux' and python_version >= '3.10'"]
+images = [
+    "torch==2.7.1", "torchvision==0.22.1", "Pillow>=10,<12",
+    "click>=8", "requests>=2.31", "tqdm>=4.64", "ninja>=1.11",
+    "psutil>=5.9", "regex", "ftfy", "packaging", "imageio>=2.34",
+    "imageio-ffmpeg>=0.4", "dill>=0.3", "einops>=0.7", "absl-py>=2",
+    "typed-argument-parser>=1.9", "timm==0.4.12", "huggingface_hub==0.34.4",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+addopts = "-ra"

@@ -1,0 +1,4 @@
+{
+  "study_config": "ablation.json",
+  "sample_budgets": [50000]
+}
